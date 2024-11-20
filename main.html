@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google STEP Interview Hub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f9;
+        }
+        header {
+            background: #4285f4;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .section-title {
+            margin: 1rem 0;
+            color: #333;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+        .form-section, .results-section {
+            margin-top: 1.5rem;
+        }
+        label {
+            display: block;
+            margin: 0.5rem 0;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background: #4285f4;
+            color: #fff;
+            padding: 0.8rem 1.2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        button:hover {
+            background: #357ae8;
+        }
+        .output {
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Google STEP Interview Hub
+    </header>
+    <div class="container">
+        <h2 class="section-title">Candidate Assessment System</h2>
+        <div class="form-section">
+            <form id="interviewForm">
+                <label for="name">Candidate Name:</label>
+                <input type="text" id="name" placeholder="Enter candidate name" required>
+                
+                <label for="resumeScore">Resume Score (out of 100):</label>
+                <input type="number" id="resumeScore" min="0" max="100" required>
+
+                <label for="telephonicScore">Telephonic Score (out of 100):</label>
+                <input type="number" id="telephonicScore" min="0" max="100" required>
+
+                <label for="techRound1">Technical Round 1 Score (out of 100):</label>
+                <input type="number" id="techRound1" min="0" max="100" required>
+
+                <label for="techRound2">Technical Round 2 Score (out of 100):</label>
+                <input type="number" id="techRound2" min="0" max="100" required>
+
+                <button type="button" onclick="calculateResults()">Submit</button>
+            </form>
+        </div>
+        <div class="results-section">
+            <h3 class="section-title">Results</h3>
+            <div class="output" id="output"></div>
+        </div>
+    </div>
+
+    <script>
+        function calculateResults() {
+            const name = document.getElementById("name").value;
+            const resumeScore = parseInt(document.getElementById("resumeScore").value);
+            const telephonicScore = parseInt(document.getElementById("telephonicScore").value);
+            const techRound1 = parseInt(document.getElementById("techRound1").value);
+            const techRound2 = parseInt(document.getElementById("techRound2").value);
+
+            const avgScore = (resumeScore + telephonicScore) / 2;
+            const avgTechScore = (techRound1 + techRound2) / 2;
+            let outputMessage = "";
+
+            if (avgScore < 60) {
+                outputMessage = Sorry ${name}, you are disqualified (Average Score: ${avgScore}).;
+            } else if (avgTechScore >= 70) {
+                outputMessage = Congratulations ${name}! You have cleared all rounds with an average technical score of ${avgTechScore}.;
+            } else {
+                outputMessage = ${name}, you did not qualify in the technical interviews (Average Technical Score: ${avgTechScore}).;
+            }
+
+            document.getElementById("output").innerText = outputMessage;
+        }
+    </script>
+</body>
+</html>
